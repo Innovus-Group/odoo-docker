@@ -1,25 +1,26 @@
 version: '2'
 services:
   web:
-    image: odoo:14.0
+    image: odoo:13.0
     depends_on:
       - db
     ports:
-      - "5000:8069"
+      - "8069:8069"
     volumes:
-      - demo_docker-web-data:/var/lib/odoo
+      - mmc_docker-web-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
       - ./enterprise:/mnt/enterprise
+      - ./acs_hms:/mnt/acs_hms
   db:
-    image: postgres:12
+    image: postgres:10
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - demo_docker-db-data:/var/lib/postgresql/data/pgdata
+      - mmc_docker-db-data:/var/lib/postgresql/data/pgdata
 volumes:
-  demo_docker-web-data:
-  demo_docker-db-data:
+  mmc_docker-web-data:
+  mmc_docker-db-data:
